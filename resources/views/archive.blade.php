@@ -51,6 +51,9 @@
                             </div>
                         @endforeach
                     </div>
+                    <form action="{{ route('files.upload') }}" method="POST" enctype="multipart/form-data">
+                    </form>
+
                 </div>
             </div>
 

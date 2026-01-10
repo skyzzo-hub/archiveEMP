@@ -20,4 +20,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/archive',function(){
     return view('archive');
 });
+
+
+Route::post('/files/upload', [FileController::class, 'store']->name('files.upload'));
 require __DIR__.'/auth.php';
