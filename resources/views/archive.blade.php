@@ -148,7 +148,7 @@
                 </div>
                 
                 <div class="flex flex-col gap-3">
-                    @foreach($courses as $file)
+                    @foreach($tutorials as $file)
 
                     <a href="{{ route('files.download', $file->id) }}" class="flex items-center justify-between p-4 bg-white/[0.02] rounded-xl border border-white/[0.03] transition-all duration-300 hover:bg-white/[0.04] hover:border-yellow-600/20 hover:scale-[1.02] group/item">
                         <div class="flex items-center gap-3 flex-1 min-w-0">
@@ -169,8 +169,7 @@
                     @endforeach
                 </div>
             </div>
-            
-            {{-- Exams Container --}}
+        
            {{-- Exams Container --}}
         <div 
             x-show="selectedCategory === 'all' || selectedCategory === 'exams'"
@@ -230,8 +229,7 @@
 
 <script>
         function handleFileUpload(input, category) {
-    console.log('Upload started for category:', category);
-    console.log('Files selected:', input.files);
+
     
     if (!input.files || input.files.length === 0) {
         alert('No files selected');
@@ -243,16 +241,12 @@
     // Add files with the correct key
     Array.from(input.files).forEach((file, index) => {
         formData.append('files[]', file, file.name);
-        console.log(`File ${index}:`, file.name, file.size, file.type);
     });
     
     formData.append('category', category);
+    formData.append('module_id', {{ $module->id }})
     
-    // Log FormData contents
-    for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-    }
-    
+
     const button = input.previousElementSibling;
     const originalText = button.innerHTML;
     button.innerHTML = 'Uploading...';

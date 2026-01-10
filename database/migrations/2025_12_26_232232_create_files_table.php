@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('filetype');
             $table->string('size');
+            $table->integer('module_id');
             $table->timestamps();
         });
     }

@@ -11,13 +11,14 @@ class File extends Model
         'filename',
         'filepath',
         'category',
+        'module_id',
         'filetype',
         'size',
         'icon'
     ];
     public function module()
     {
-        return $this->belongsTo(Module::class, 'module_id');
+        return $this->belongsTo(Module::class);
     }
 
     public function user()

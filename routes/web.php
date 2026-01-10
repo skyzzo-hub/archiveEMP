@@ -28,5 +28,5 @@ Route::post('/upload',[App\Http\Controllers\UploadManager::class,'upload'])
 Route::get('/download/{file}',[App\Http\Controllers\UploadManager::class,'download'])
         ->name('files.download');
 
- Route::get('/archive', [UploadManager::class, 'index'])->name('archive.index');
+ Route::get('/archive/{moduleId}', [UploadManager::class, 'index'])->name('archive.index');
 require __DIR__.'/auth.php';
