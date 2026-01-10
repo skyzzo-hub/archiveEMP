@@ -15,10 +15,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('filename');
             $table->string('filepath');
+            $table->string('category');
             $table->string('filetype');
-            $table->foreignId('id_module')->constrained('modules')->onDelete('cascade');
-            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
-            $table->string('annee');
+            $table->string('size');
             $table->timestamps();
         });
     }

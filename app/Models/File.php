@@ -6,7 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-    //
+    protected $table = 'files';
+    protected $fillable = [
+        'filename',
+        'filepath',
+        'category',
+        'filetype',
+        'size',
+        'icon'
+    ];
     public function module()
     {
         return $this->belongsTo(Module::class, 'module_id');
@@ -16,4 +24,5 @@ class File extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    
 }

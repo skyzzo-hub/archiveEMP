@@ -20,7 +20,10 @@
 
     <style>
         body {
-            background: #f5f5f5;
+            background-image: url("{{ asset('/bg1.jpg') }}");
+            background-size: 1920px 1080px;
+            background-attachment: fixed;
+
         }
 
         .navbar {
@@ -105,7 +108,7 @@
 </nav>
 
 {{-- Page Content --}}
-@yield('content')
+@yield(section: 'content')
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
