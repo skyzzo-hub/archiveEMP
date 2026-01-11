@@ -5,8 +5,144 @@
 @section('content')
 {{-- Educational Resources Container --}}
 
+    <div x-data="{ 
+    selectedCategory: 'all', 
+    openDropdown: false 
+}" class="min-h-screen flex">
+    {{-- Sidebar --}}
+    <aside 
+    x-show="sidebarOpen"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="-translate-x-full"
+    x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition ease-in duration-300"
+    x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="-translate-x-full"
+    class="fixed lg:relative w-80 h-screen bg-black/40 backdrop-blur-sm border-r border-white/10 p-6 z-40 overflow-y-auto">
     
-    {{-- Main Container --}}
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-bold text-white">Modules</h2>
+    </div>
+    
+    {{-- Module List --}}
+    <nav class="space-y-2">
+        {{-- Current Module Info --}}
+    <div class="mt-8 p-4 bg-yellow-500/10 rounded-lg border border-yellow-500/30">
+        <h3 class="text-sm font-semibold text-yellow-500 mb-2">Current Module</h3>
+        <p class="text-white font-medium">{{ $module->name }}</p>
+        
+        
+        {{-- File counts --}}
+        <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+            <div class="bg-black/20 rounded p-2">
+                <p class="text-xs text-slate-400">Courses</p>
+                <p class="text-lg font-bold text-yellow-500">{{ $courses->count() }}</p>
+            </div>
+            <div class="bg-black/20 rounded p-2">
+                <p class="text-xs text-slate-400">Tutorials</p>
+                <p class="text-lg font-bold text-yellow-500">{{ $tutorials->count() }}</p>
+            </div>
+            <div class="bg-black/20 rounded p-2">
+                <p class="text-xs text-slate-400">Exams</p>
+                <p class="text-lg font-bold text-yellow-500">{{ $exams->count() }}</p>
+            </div>
+        </div>
+    </div>
+        <a href="/archive/1" class="block px-4 py-3 rounded-lg {{ $module->id == 1 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">📐</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Theorie De Language</p>
+                    <p class="text-xs opacity-70">THL resources</p>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/archive/2" class="block px-4 py-3 rounded-lg {{ $module->id == 2 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">⚛️</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Theorie de Graphes</p>
+                    <p class="text-xs opacity-70">THG resources</p>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/archive/3" class="block px-4 py-3 rounded-lg {{ $module->id == 3 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🧪</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Theorie de L'information Module</p>
+                    <p class="text-xs opacity-70">THI resources</p>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/archive/4" class="block px-4 py-3 rounded-lg {{ $module->id == 4 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">📡</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Theorie de Signal  Science</p>
+                    <p class="text-xs opacity-70">THS resources</p>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/archive/5" class="block px-4 py-3 rounded-lg {{ $module->id == 5 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">📊</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Base de Donnees Module</p>
+                    <p class="text-xs opacity-70">BDD resources</p>
+                </div>
+            </div>
+        </a>
+        <a href="/archive/5" class="block px-4 py-3 rounded-lg {{ $module->id == 6 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">📈</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Analyse de Donnees Module</p>
+                    <p class="text-xs opacity-70">ADD resources</p>
+                </div>
+            </div>
+        </a>
+        <a href="/archive/5" class="block px-4 py-3 rounded-lg {{ $module->id == 7 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🌐</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Development Web Module</p>
+                    <p class="text-xs opacity-70">Web resources</p>
+                </div>
+            </div>
+        </a>
+        <a href="/archive/5" class="block px-4 py-3 rounded-lg {{ $module->id == 8 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🔌</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Reseau Module</p>
+                    <p class="text-xs opacity-70">RSX resources</p>
+                </div>
+            </div>
+        </a>
+        <a href="/archive/5" class="block px-4 py-3 rounded-lg {{ $module->id == 9 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' : 'text-slate-300 hover:bg-white/5 border border-transparent' }} transition-all duration-200">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🎲</span>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium truncate">Random Processes and Queues Module</p>
+                    <p class="text-xs opacity-70">PAFA resources</p>
+                </div>
+            </div>
+        </a>
+    </nav>
+    
+    
+</aside>
+
+    {{-- Main Content Area --}}
+    <div class="flex-1 p-8 overflow-y-auto">
+        
+
+        {{-- Main Container --}}
     <div class="w-full max-w-7xl mx-auto mt-10 bg-gray/40 backdrop-blur-sm rounded-3xl p-10 shadow-[0_20px_60px_rgba(0,0,0,0.5),0_10px_30px_rgba(0,0,0,0.4)] relative overflow-hidden border border-1 border-gray/100" x-data="{ selectedCategory: 'all', openDropdown: false }">
         
         {{-- Top Gold Accent Line --}}
@@ -148,7 +284,7 @@
                 </div>
                 
                 <div class="flex flex-col gap-3">
-                    @foreach($tutorials as $file)
+                    @foreach($courses as $file)
 
                     <a href="{{ route('files.download', $file->id) }}" class="flex items-center justify-between p-4 bg-white/[0.02] rounded-xl border border-white/[0.03] transition-all duration-300 hover:bg-white/[0.04] hover:border-yellow-600/20 hover:scale-[1.02] group/item">
                         <div class="flex items-center gap-3 flex-1 min-w-0">
@@ -169,7 +305,8 @@
                     @endforeach
                 </div>
             </div>
-        
+            
+            {{-- Exams Container --}}
            {{-- Exams Container --}}
         <div 
             x-show="selectedCategory === 'all' || selectedCategory === 'exams'"
@@ -226,10 +363,16 @@
         
         </div>
 </div>
+        
+    </div>
+
+</div> {{-- Closing the main wrapper --}}
+    
 
 <script>
         function handleFileUpload(input, category) {
-
+    console.log('Upload started for category:', category);
+    console.log('Files selected:', input.files);
     
     if (!input.files || input.files.length === 0) {
         alert('No files selected');
@@ -241,12 +384,16 @@
     // Add files with the correct key
     Array.from(input.files).forEach((file, index) => {
         formData.append('files[]', file, file.name);
+        console.log(`File ${index}:`, file.name, file.size, file.type);
     });
     
     formData.append('category', category);
-    formData.append('module_id', {{ $module->id }})
     
-
+    // Log FormData contents
+    for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+    }
+    
     const button = input.previousElementSibling;
     const originalText = button.innerHTML;
     button.innerHTML = 'Uploading...';
