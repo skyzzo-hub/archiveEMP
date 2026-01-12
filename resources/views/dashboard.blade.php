@@ -37,8 +37,6 @@
             border: 1px solid rgba(239,68,68,0.3);
         }
         .logout-btn:hover { background: linear-gradient(135deg, #dc2626, #b91c1c); transform: scale(1.05); }
-        .nav-divider { width: 1px; height: 24px; background: linear-gradient(to bottom, transparent, #64748b, transparent); margin: 0 16px; border-radius: 1px; }
-        .font-thin-custom { font-weight: 300 !important; }
         .font-light-custom { font-weight: 400 !important; }
         .logout-modal { backdrop-filter: blur(20px); background: rgba(15,23,42,0.95); }
         .logout-modal::backdrop { backdrop-filter: blur(8px); }
@@ -47,66 +45,61 @@
 <body>
     <div class="bg-library"></div>
     <div class="content-wrapper">
-        <nav class="fixed top-0 w-full z-50 bg-slate-900 bg-opacity-95 border-b border-slate-700 shadow-lg">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="h-20 py-4 px-8 flex items-center gap-8 lg:gap-16 xl:gap-24">
-                    <div class="flex items-center space-x-4 flex-shrink-0">
-                        <button class="text-white p-3 hover:bg-slate-800 rounded-xl transition-all duration-200">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+        <!-- NAVBAR CORRIGÉE -->
+        <nav class="fixed top-0 w-full z-50 bg-slate-900/95 border-b border-slate-700 shadow-lg">
+            <div class="w-full px-4 py-4">
+                <div class="flex items-center justify-between gap-4">
+
+                    <!-- GAUCHE : MENU + LOGO (fixé à l'extrémité gauche) -->
+                    <div class="flex items-center space-x-3 flex-shrink-0">
+                        <button data-collapse-toggle="navbar-emp" type="button" class="p-2 w-10 h-10 justify-center text-white rounded-lg hover:bg-slate-800/50 transition-all" title="Menu">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         </button>
-                        <div class="flex items-center space-x-3">
-                            <img src="{{ asset('logo/logo.png') }}" alt="Logo EMP" class="h-12 w-12 object-contain">
-                            <div class="text-white font-thin-custom">
-                                <div class="text-lg font-bold tracking-normal">ARCHIVE</div>
-                                <div class="text-base tracking-normal">EMP</div>
+
+                        <a href="#" class="flex items-center space-x-2">
+                            <img src="{{ asset('logo/logo.png') }}" class="h-8 w-8 object-contain" alt="EMP Logo">
+                            <div class="text-white font-semibold text-xl hidden sm:block">
+                                <div>ARCHIVE</div>
+                                <div class="text-sm font-normal opacity-90">EMP</div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
-                    <div class="flex-1 max-w-2xl mx-auto hidden md:flex">
+                    <!-- CENTRE : RECHERCHE (centré avec width plus grand) -->
+                    <div class="hidden md:flex flex-1 justify-center max-w-2xl mx-auto">
                         <div class="relative w-full">
-                            <input type="text" placeholder="🔍 Rechercher un module..."
-                                   class="w-full bg-white/90 backdrop-blur-sm rounded-2xl pl-12 pr-12 py-3 text-gray-800 font-light-custom tracking-tight focus:outline-none focus:ring-4 focus:ring-yellow-400/50 shadow-xl border border-white/20">
+                            <input type="text" placeholder="Rechercher un module..."
+                                class="w-full bg-white/90 backdrop-blur-sm rounded-xl pl-12 pr-4 py-3 text-gray-800 font-light-custom tracking-tight focus:outline-none focus:ring-4 focus:ring-yellow-400/50 shadow-xl border border-white/20">
                             <svg class="w-5 h-5 text-gray-500 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
-                                </svg>
-                            </button>
                         </div>
                     </div>
 
+                    <!-- DROITE : LOGOUT (fixé à l'extrémité droite) -->
                     <div class="flex items-center space-x-3 flex-shrink-0">
-                        <button class="text-white hover:text-yellow-400 p-3 hover:bg-slate-800/50 rounded-xl transition-all duration-200 backdrop-blur-sm">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
+                        <!-- LOGOUT -->
+                        <button onclick="showLogoutModal(event)" class="px-4 py-2 hover:bg-slate-800/50 rounded-lg transition-all shadow-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-400 text-red-400 font-light-custom" title="Déconnexion">
+                            Déconnexion
                         </button>
-                        <button class="text-white hover:text-yellow-400 p-3 hover:bg-slate-800/50 rounded-xl transition-all duration-200 backdrop-blur-sm relative">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">3</span>
-                        </button>
-                        <div class="nav-divider"></div>
-                        <form method="POST" action="{{ route('logout') }}" class="inline" onclick="showLogoutModal(event)">
-                            @csrf
-                            <button type="submit" class="logout-btn text-white font-light-custom px-6 py-3 rounded-xl shadow-2xl transition-all duration-500 flex items-center space-x-2 hover:shadow-2xl hover:scale-105 backdrop-blur-sm border-white/20 text-sm tracking-tight">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                                </svg>
-                                <span class="hidden sm:inline font-light-custom">Déconnexion</span>
-                            </button>
-                        </form>
                     </div>
+                </div>
+
+                <!-- Menu Mobile Collapse -->
+                <div class="items-center justify-between w-full md:hidden hidden mt-4" id="navbar-emp">
+                    <ul class="flex flex-col p-4 font-medium border border-slate-700 rounded-lg bg-slate-800/50 space-y-2">
+                        <li><a href="#" class="block py-2 px-3 text-white rounded hover:bg-slate-700">Modules S1</a></li>
+                        <li><a href="#" class="block py-2 px-3 text-white rounded hover:bg-slate-700">Modules S2</a></li>
+                        <li><a href="#" class="block py-2 px-3 text-white rounded hover:bg-slate-700">Archives</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
 
+        <!-- Modal Logout -->
         <dialog id="logoutModal" class="logout-modal rounded-3xl p-8 w-full max-w-md mx-auto backdrop-blur-xl shadow-2xl border border-white/20">
             <div class="text-center space-y-6">
                 <div class="w-20 h-20 mx-auto bg-gradient-to-br from-red-500/20 to-red-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border-2 border-red-500/30">
@@ -124,17 +117,15 @@
                     <button onclick="closeLogoutModal()" class="flex-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-light-custom px-6 py-3 rounded-xl border border-white/20 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
                         Annuler
                     </button>
-                    <form method="POST" action="{{ route('logout') }}" class="flex-1 inline">
-                        @csrf
-                        <button type="submit" class="w-full logout-btn text-white font-light-custom px-6 py-3 rounded-xl shadow-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 backdrop-blur-sm text-sm tracking-tight">
-                            Déconnexion
-                        </button>
-                    </form>
+                    <button onclick="handleLogout()" class="flex-1 logout-btn text-white font-light-custom px-6 py-3 rounded-xl shadow-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 backdrop-blur-sm text-sm tracking-tight">
+                        Déconnexion
+                    </button>
                 </div>
             </div>
         </dialog>
 
-        <div class="min-h-screen pt-32 pb-12">
+        <!-- Contenu principal -->
+        <div class="min-h-screen pt-24 pb-12">
             <div class="container mx-auto px-4 lg:px-8">
                 <div class="text-center mb-16">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-light-custom tracking-tight mb-6 gradient-text drop-shadow-2xl">📚 Archives Académiques</h1>
@@ -143,12 +134,13 @@
                 </div>
 
                 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                    <!-- Card Semestre 1 -->
                     <div class="card-s1 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500">
                         <div class="header-s1 p-8">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <h2 class="text-3xl lg:text-4xl font-light-custom tracking-tight text-white mb-2 drop-shadow-lg">Semestre 1</h2>
-                                    <p class="text-yellow-100 text-base font-light-custom tracking-tight opacity-90">11 Modules disponibles</p>
+                                    <p class="text-yellow-100 text-base font-light-custom tracking-tight opacity-90">10 Modules disponibles</p>
                                 </div>
                                 <div class="rounded-full p-5 bg-white bg-opacity-20 backdrop-blur-sm shadow-xl">
                                     <svg class="w-10 h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,18 +150,46 @@
                             </div>
                         </div>
                         <div class="p-8 space-y-4 max-h-96 overflow-y-auto">
-                            <?php
-                            $modulesS1 = ['Théorie Des Graphes', 'Théorie De Langage', 'Théorie De Signal ','Théorie De L`Information', 'Développement Web', 'Concepts De Base De Réseau','Analyse Des Données', 'Base De Données Avancée', '>','Langue Anglaise I', 'Langue Française I'];
-                            foreach($modulesS1 as $index => $module) {
-                                echo '<a href="/archive" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">';
-                                echo '<div class="flex items-center space-x-4"><span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">' . ($index + 1) . '</span>';
-                                echo '<div><span class="text-white font-light-custom text-base leading-tight block tracking-tight">' . $module . '</span><span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span></div></div>';
-                                echo '<svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>';
-                            }
-                            ?>
+                            <a href="#" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                                <div class="flex items-center space-x-4">
+                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">1</span>
+                                    <div>
+                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Théorie Des Graphes</span>
+                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
+                                    </div>
+                                </div>
+                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                                <div class="flex items-center space-x-4">
+                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">2</span>
+                                    <div>
+                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Théorie De Langage</span>
+                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
+                                    </div>
+                                </div>
+                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                                <div class="flex items-center space-x-4">
+                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">3</span>
+                                    <div>
+                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Développement Web</span>
+                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
+                                    </div>
+                                </div>
+                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
 
+                    <!-- Card Semestre 2 -->
                     <div class="card-s2 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500">
                         <div class="header-s2 p-8">
                             <div class="flex items-center justify-between">
@@ -185,19 +205,23 @@
                             </div>
                         </div>
                         <div class="p-8 space-y-4 max-h-96 overflow-y-auto">
-                            <?php
-                            $modulesS2 = ['Analyse Mathématique II', 'Algèbre et Géométrie', 'Physique II - Électromagnétisme','Thermodynamique', 'Informatique II', 'Mécanique du Point','Langue Française II', 'Langue Anglaise II', 'Structure de la Matière','Probabilités et Statistiques', 'Droits de l\'Homme', 'Éducation Physique II'];
-                            foreach($modulesS2 as $index => $module) {
-                                echo '<a href="/archive" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">';
-                                echo '<div class="flex items-center space-x-4"><span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">' . ($index + 1) . '</span>';
-                                echo '<div><span class="text-white font-light-custom text-base leading-tight block tracking-tight">' . $module . '</span><span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span></div></div>';
-                                echo '<svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>';
-                            }
-                            ?>
+                            <a href="#" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                                <div class="flex items-center space-x-4">
+                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">1</span>
+                                    <div>
+                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Analyse Mathématique II</span>
+                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
+                                    </div>
+                                </div>
+                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Footer Card -->
                 <div class="text-center mt-20">
                     <div class="footer-card inline-block rounded-2xl px-12 py-6 shadow-2xl hover:shadow-xl transition-all duration-300">
                         <p class="text-gray-200 flex items-center justify-center space-x-3 text-base font-light-custom tracking-tight">
@@ -220,7 +244,19 @@
         function closeLogoutModal() {
             document.getElementById('logoutModal').close();
         }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogoutModal(); });
+        function handleLogout() {
+            alert('Déconnexion simulée - Intégrez votre logique de déconnexion ici');
+            closeLogoutModal();
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLogoutModal();
+        });
+
+        // Menu mobile toggle
+        document.querySelector('[data-collapse-toggle="navbar-emp"]').addEventListener('click', function() {
+            const navbar = document.getElementById('navbar-emp');
+            navbar.classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
