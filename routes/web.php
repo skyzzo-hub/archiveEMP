@@ -3,14 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
-use App\Http\Middleware\CheckLanguage; // <-- Important : On importe le fichier créé
+use App\Http\Middleware\CheckLanguage; 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfileController;
 
-/*
-|--------------------------------------------------------------------------
-| 1. ROUTE DU GLOBE (Changer de langue)
-|--------------------------------------------------------------------------
-| C'est cette route qui manquait et qui causait l'erreur 404 !
-*/
+use App\Http\Controllers\UploadManager;
+
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['fr', 'en'])) {
         Session::put('locale', $locale);
@@ -18,12 +17,6 @@ Route::get('/language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('language.switch');
 
-
-/*
-|--------------------------------------------------------------------------
-| 2. VOS PAGES (Protégées par le Middleware)
-|--------------------------------------------------------------------------
-*/
 Route::middleware(CheckLanguage::class)->group(function () {
 
     // Page d'Accueil
@@ -31,10 +24,6 @@ Route::middleware(CheckLanguage::class)->group(function () {
         return view('welcome');
     })->name('home');
 
-    // Si tu n'as pas encore de route login, ajoute celle-ci :
-Route::get('/login', function () {
-    return view('/login'); // Remplace par le chemin de ta page login
-})->name('login');
 
     // Page À propos
     Route::view('/about', 'about')->name('about');
@@ -44,3 +33,63 @@ Route::get('/login', function () {
 
 });
 
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+
+// Routes d'authentification (pour visiteurs non connectés)
+Route::middleware('guest')->group(function () {
+    // Login
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+
+    // Register
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'register']);
+
+    // Password Reset
+    Route::get('/password/reset', function () {
+        return view('auth.forgot-password');
+    })->name('password.request');
+});
+
+// Routes protégées (nécessitent authentification)
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Archive - Page des modules
+    
+    Route::get('/archive/{moduleId}', [UploadManager::class, 'index'])->name('archive.index');
+
+    // Logout
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/upload',[App\Http\Controllers\UploadManager::class,'upload'])
+        ->name('files.upload');
+
+    Route::get('/download/{file}',[App\Http\Controllers\UploadManager::class,'download'])
+            ->name('files.download');
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/archive',function(){
+    return view('archive');
+});
+require __DIR__.'/auth.php';

@@ -276,40 +276,39 @@
         }
 
         .main-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* Remplace par le bon chemin vers ton image */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                     url("{{ asset('background/background.jpg') }}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1; /* Indispensable pour être DERRIÈRE tout le reste */
-}
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                z-index: -1;
+        }
 
-/* On nettoie le body et le hero pour qu'ils soient transparents */
-body, .hero {
-    background: transparent !important;
-}
 
-/* En mode clair, on peut éclaircir le voile sur l'image */
-[data-theme="light"] .main-background {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
+        body, .hero {
+               background: transparent !important;
+        }
+
+
+        [data-theme="light"] .main-background {
+              background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
                     url("{{ asset('background/background.jpg') }}");
-}
+        }
 
-.description {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: #94a3b8;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
+        .description {
+              font-size: clamp(1rem, 2vw, 1.2rem);
+              color: #94a3b8;
+              line-height: 1.8;
+              margin-bottom: 3rem;
+              max-width: 800px;
+              margin-left: auto;
+              margin-right: auto;
+        }
     </style>
 </head>
 <body>
