@@ -1,15 +1,67 @@
 <?php
+require __DIR__.'/auth.php';
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfileController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes - Laravel Blade Authentication
+|--------------------------------------------------------------------------
+*/
+
+// Page d'accueil
+
+use App\Http\Controllers\UploadManager;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Routes d'authentification (pour visiteurs non connectés)
+Route::middleware('guest')->group(function () {
+    // Login
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+
+    // Register
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'register']);
+
+    // Password Reset
+    Route::get('/password/reset', function () {
+        return view('auth.forgot-password');
+    })->name('password.request');
+});
+
+// Routes protégées (nécessitent authentification)
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Archive - Page des modules
+    
+    Route::get('/archive/{moduleId}', [UploadManager::class, 'index'])->name('archive.index');
+
+    // Logout
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/upload',[App\Http\Controllers\UploadManager::class,'upload'])
+        ->name('files.upload');
+
+    Route::get('/download/{file}',[App\Http\Controllers\UploadManager::class,'download'])
+            ->name('files.download');
+
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -20,7 +72,4 @@ Route::middleware('auth')->group(function () {
 Route::get('/archive',function(){
     return view('archive');
 });
-
-
-Route::post('/files/upload', [FileController::class, 'store']->name('files.upload'));
 require __DIR__.'/auth.php';
