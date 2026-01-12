@@ -22,6 +22,7 @@
             background-attachment:fixed;
             height: 100vh;
             background-repeat: no-repeat;
+             overflow-y: auto;
         }
         /* dark overlay */
         body::before {
@@ -30,6 +31,7 @@
         inset: 0;
         background: rgba(0, 0, 0, 0.6); /* control darkness */
         z-index: -1;
+       
         }
 
         .navbar {
@@ -81,30 +83,61 @@
             font-family: 'Baskervville SC', serif;
             font-style: normal;
             font-optical-sizing: auto;
+          
         }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fbbf24, #f59e0b, #fbbf24);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .card-s1 { background: rgba(30,41,59,0.85); border: 2px solid rgba(251,191,36,0.3); backdrop-filter: blur(10px); }
+        .card-s2 { background: rgba(30,41,59,0.85); border: 2px solid rgba(59,130,246,0.3); backdrop-filter: blur(10px); }
+        .header-s1 { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
+        .header-s2 { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
+        .module-item {
+            background: rgba(51,65,85,0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(71,85,105,0.5); transition: all 0.3s ease;
+        }
+        .module-item:hover { transform: translateX(8px); }
+        .module-item-s1:hover { background: rgba(217,119,6,0.3); border-color: rgba(251,191,36,0.6); }
+        .module-item-s2:hover { background: rgba(37,99,235,0.3); border-color: rgba(59,130,246,0.6); }
+        .badge-s1 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .badge-s2 { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .footer-card { background: rgba(30,41,59,0.7); border: 1px solid rgba(251,191,36,0.3); backdrop-filter: blur(10px); }
+        .logout-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border: 1px solid rgba(239,68,68,0.3);
+        }
+        .logout-btn:hover { background: linear-gradient(135deg, #dc2626, #b91c1c); transform: scale(1.05); }
+        .font-light-custom { font-weight: 400 !important; }
+        .logout-modal { backdrop-filter: blur(20px); background: rgba(15,23,42,0.95); }
+        .logout-modal::backdrop { backdrop-filter: blur(8px); }
     </style>
 </head>
-<body>
+<body x-data="{ sidebarOpen: true }">
 
 {{-- Navbar --}}
-<nav class="navbar navbar-expand-lg px-3">
-    <div class=" d-flex gap-5">
-        <button class="btn btn-outline-light px-2 mt-3 mb-3">
-            <i class="bi bi-list"></i>
+<nav class=" flex top-0 w-full z-50 bg-slate-900/95 border-b border-slate-700 shadow-lg">
+    <div class=" d-flex gap-3">
+      <button
+            @click="sidebarOpen = !sidebarOpen"
+            class="px-4 py-2 text-slate-100 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
         </button>
 
         <div class="contents d-flex">
-            
-                <a class="archive navbar-brand text-white text-center ml-1" href="#">
+                <img src="{{ asset('logo/logo.png') }}" alt="logo emp" style="height:70px;">
+                <a class="archive navbar-brand text-white text-center mt-2 ml-2" href="#">
                     Archive<br>EMP
                 </a>
-            <img src="{{ asset('logo/logo.png') }}" alt="logo emp" style="height:70px;">
-            
+          
         </div>  
     </div>
     
 
-    <div class="mx-auto" style="max-width:420px;width:100%;">
+    <div class="mt-3 mx-auto" style="max-width:420px;width:100%;">
         <div class="input-group">
             <span class="input-group-text"><i class="bi bi-search"></i></span>
             <input type="text" class="form-control" placeholder="Search...">
@@ -112,91 +145,67 @@
         </div>
     </div>
 
-    <div class="d-flex mr-10 gap-3">
-        
-<button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class=" flex text-sm bg-dark rounded-full md:me-0 focus:ring-4 focus:ring-neutral-quaternary" type="button">
-  <span class="sr-only">Open user menu</span>
-  <i class=" bi bi-person-circle text-white fs-5"></i>
-</button>
-
-<!-- Dropdown menu -->
-<div id="dropdownAvatar" class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-72">
-    <div class="p-2">
-      <div class="flex items-center px-2.5 p-2 space-x-1.5 text-sm bg-neutral-secondary-strong rounded">
-        <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="Rounded avatar">
-        <div class="text-sm">
-          <div class="font-medium text-heading">Joseph McFall</div>
-          <div class="truncate text-body">name@flowbite.com</div>
-        </div>
-        <span class="bg-brand-softer border border-brand-subtle text-fg-brand-strong text-xs font-medium px-1.5 py-0.5 rounded ms-auto">PRO</span>
-      </div>
+    <div class="flex items-center space-x-3 mr-3 flex-shrink-0">
+                        <!-- LOGOUT -->
+       <button onclick="showLogoutModal(event)" class="px-4 py-2 hover:bg-slate-800/50 rounded-lg transition-all shadow-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-400 text-red-400 font-light-custom" title="Déconnexion">
+         Déconnexion
+       </button>
     </div>
-    <ul class="px-2 pb-2 text-sm text-body font-medium" aria-labelledby="dropdownAvatarButton">
-      <li>
-        <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
-          Account
-        </a>
-      </li>
-      <li>
-        <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4"/></svg>
-          Settings
-        </a>
-      </li>
-      <li>
-        <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/></svg>
-          Privacy
-        </a>
-      </li>
-      <li>
-        <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/></svg>
-          Notifications
-        </a>
-      </li>
-      <li>
-        <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-          Help center
-        </a>
-      </li>
-      <li class="flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded mb-1.5">
-        <a href="#" class="inline-flex items-center">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z"/></svg>
-          Dark mode
-        </a>
-        <label class="inline-flex items-center cursor-pointer ms-auto">
-          <input type="checkbox" value="" class="sr-only peer">
-          <div class="relative w-9 h-5 bg-neutral-quaternary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"></div>
-          <span class="ms-3 text-sm font-medium text-heading sr-only">Toggle me</span>
-        </label>
-      </li>
-      <li class="border-t border-default-medium pt-1.5">
-        <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m10.051 8.102-3.778.322-1.994 1.994a.94.94 0 0 0 .533 1.6l2.698.316m8.39 1.617-.322 3.78-1.994 1.994a.94.94 0 0 1-1.595-.533l-.4-2.652m8.166-11.174a1.366 1.366 0 0 0-1.12-1.12c-1.616-.279-4.906-.623-6.38.853-1.671 1.672-5.211 8.015-6.31 10.023a.932.932 0 0 0 .162 1.111l.828.835.833.832a.932.932 0 0 0 1.111.163c2.008-1.102 8.35-4.642 10.021-6.312 1.475-1.478 1.133-4.77.855-6.385Zm-2.961 3.722a1.88 1.88 0 1 1-3.76 0 1.88 1.88 0 0 1 3.76 0Z"/></svg>
-          Upgrade to PRO
-        </a>
-      </li>
-      <li>
-        <a href="#" class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded">
-          <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/></svg>
-          Sign out
-        </a>
-      </li>
-    </ul>
-</div>
 
-        
-        
-        
-    </div>
+    <dialog id="logoutModal" class="logout-modal rounded-3xl p-8 w-full max-w-md mx-auto backdrop-blur-xl shadow-2xl border border-white/20">
+            <div class="text-center space-y-6">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-red-500/20 to-red-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border-2 border-red-500/30">
+                    <svg class="w-12 h-12 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"></path>
+                    </svg>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-2xl font-light-custom tracking-tight text-white">Confirmer déconnexion</h3>
+                    <p class="text-gray-300 text-base font-light-custom tracking-tight max-w-sm mx-auto leading-relaxed">
+                        Voulez-vous vraiment quitter votre session Archive EMP ?
+                    </p>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button onclick="closeLogoutModal()" class="flex-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-light-custom px-6 py-3 rounded-xl border border-white/20 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+                        Annuler
+                    </button>
+                    <button onclick="handleLogout()" class="flex-1 logout-btn text-white font-light-custom px-6 py-3 rounded-xl shadow-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 backdrop-blur-sm text-sm tracking-tight">
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+        </dialog>
+
+
 </nav>
 
 {{-- Page Content --}}
-@yield('content')
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+        function showLogoutModal(event) {
+            event.preventDefault();
+            document.getElementById('logoutModal').showModal();
+        }
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').close();
+        }
+        function handleLogout() {
+            alert('Déconnexion simulée - Intégrez votre logique de déconnexion ici');
+            closeLogoutModal();
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLogoutModal();
+        });
+
+        // Menu mobile toggle
+        document.querySelector('[data-collapse-toggle="navbar-emp"]').addEventListener('click', function() {
+            const navbar = document.getElementById('navbar-emp');
+            navbar.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
+
+@yield('content')
