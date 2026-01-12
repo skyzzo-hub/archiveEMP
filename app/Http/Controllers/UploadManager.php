@@ -9,19 +9,16 @@ class UploadManager extends Controller
 {
     public function upload(Request $request){
 
-        \Log::info('Upload started', ['category' => $request->category]);
         
         $request->validate([
             'files.*' => 'required|file',
             'category' => 'required|in:courses,tutorials,exams',
-            'module_id' => 'required|integer|in:1,2,3,4,5,6,7,8,9'
+            'module_id' => 'required|integer|in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24'
 
         ]);
 
         foreach( $request->file('files') as $file ){
             $path = $file->store('uploads/' . $request->category, 'public');
-
-            \Log::info('File stored', ['filepath' => $path, 'name' => $file->getClientOriginalName()]);
 
             File::create([
             'filename' => $file->getClientOriginalName(),

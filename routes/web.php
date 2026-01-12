@@ -7,7 +7,6 @@ use App\Http\Middleware\CheckLanguage;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\UploadManager;
 
 Route::get('/language/{locale}', function ($locale) {
@@ -20,10 +19,9 @@ Route::get('/language/{locale}', function ($locale) {
 Route::middleware(CheckLanguage::class)->group(function () {
 
     // Page d'Accueil
-    Route::get('/', function () {
+    Route::get('/home', function () {
         return view('welcome');
     })->name('home');
-
 
     // Page À propos
     Route::view('/about', 'about')->name('about');
@@ -32,7 +30,6 @@ Route::middleware(CheckLanguage::class)->group(function () {
     Route::view('/contact', 'contact')->name('contact');
 
 });
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -75,10 +72,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('/upload',[App\Http\Controllers\UploadManager::class,'upload'])
+    Route::post('/upload',[UploadManager::class,'upload'])
         ->name('files.upload');
 
-    Route::get('/download/{file}',[App\Http\Controllers\UploadManager::class,'download'])
+    Route::get('/download/{file}',[UploadManager::class,'download'])
             ->name('files.download');
 
 });
@@ -90,6 +87,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/archive',function(){
-    return view('archive');
+    return view('archive.index');
 });
 require __DIR__.'/auth.php';
