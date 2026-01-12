@@ -20,7 +20,10 @@
 
     <style>
         body {
-            background: #f5f5f5;
+            background-image: url("{{ asset('/bg1.jpg') }}");
+            background-size: 1920px 1080px;
+            background-attachment: fixed;
+
         }
 
         .navbar {

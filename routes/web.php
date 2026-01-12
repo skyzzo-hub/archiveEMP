@@ -1,4 +1,5 @@
 <?php
+require __DIR__.'/auth.php';
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -12,6 +13,9 @@ use App\Http\Controllers\ProfileController;
 */
 
 // Page d'accueil
+
+use App\Http\Controllers\UploadManager;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,9 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Archive - Page des modules
-    Route::get('/archive/{module?}', function ($module) {
-        return view('archive', ['module' => $module]);
-    })->name('archive');
+    
+    Route::get('/archive/{moduleId}', [UploadManager::class, 'index'])->name('archive.index');
 
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -51,6 +54,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/upload',[App\Http\Controllers\UploadManager::class,'upload'])
+        ->name('files.upload');
+
+    Route::get('/download/{file}',[App\Http\Controllers\UploadManager::class,'download'])
+            ->name('files.download');
+
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+
 
 
