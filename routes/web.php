@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadManager;
+use App\Models\Module;
 
 Route::get('/language/{locale}', function ($locale) {
     if (in_array($locale, ['fr', 'en'])) {
@@ -57,15 +58,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $modules=module::get();
+        return view('dashboard',['modules'=>$modules]);
     })->name('dashboard');
 
-    Route::get('/archive/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
     // Archive - Page des modules
     
-    Route::get('/archive/{moduleId}', [UploadManager::class, 'index'])->name('archive.index');
+    Route::get('/archive/{id}', [UploadManager::class, 'index'])->name('archive.index');
 
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -81,6 +80,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/download/{file}',[UploadManager::class,'download'])
             ->name('files.download');
 
+    Route::delete('/files/{file}', [UploadManager::class, 'destroy'])
+            ->name('files.destroy');        
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -92,4 +94,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/archive',function(){
     return view('archive.index');
 });
+
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    
+    return redirect('/login'); // Redirige vers la page de login
+})->name('logout');
 require __DIR__.'/auth.php';

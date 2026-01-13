@@ -2,11 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Models\File ;
 use Illuminate\Support\Facades\Storage;
 class UploadManager extends Controller
 {
+
+    public function destroy(File $file)
+    {
+        try {
+            // Delete the physical file from storage
+            if (Storage::disk('public')->exists($file->filepath)) {
+                Storage::disk('public')->delete($file->filepath);
+            }
+            
+            // Delete the database record
+            $file->delete();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'File deleted successfully'
+            ]);
+            
+        } catch (\Exception $e) {
+            \Log::error('File deletion error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete file'
+            ], 500);
+        }
+    }
     public function upload(Request $request){
 
         
@@ -46,61 +72,22 @@ public function download(File $file)
         $file->filename
     );
 }
-public function index($moduleId)
+public function index($id)
 {
 
+    
+    $courses = \App\Models\File::where('category', 'courses')->where('module_id',$id)->get();
+    
 
-    // Test query
-    $allFiles = \App\Models\File::all();
-    \Log::info('Total files in database: ' . $allFiles->count());
     
-    foreach ($allFiles as $file) {
-        \Log::info('File: ' . $file->name . ' | Category: "' . $file->category . '" | Length: ' . strlen($file->category));
-    }
+    $module = Module::findOrFail($id);
     
-    $courses = \App\Models\File::where('category', 'courses')->where('module_id',$moduleId)->get();
-    \Log::info('Courses found: ' . $courses->count());
-    
-    // Try without where clause to see all files
-    $allAsTest = \App\Models\File::all();
-    
-    $modules = [
-        1 => ['id' => 1, 'name' => 'THL'],
-        2 => ['id' => 2, 'name' => 'THG'],
-        3 => ['id' => 3, 'name' => 'THI'],
-        4 => ['id' => 4, 'name' => 'THS'],
-        5 => ['id' => 5, 'name' => 'BDD'],
-        6 => ['id' => 6, 'name' => 'ADD'],
-        7 => ['id' => 7, 'name' => 'Web'],
-        8 => ['id' => 8, 'name' => 'RSX'],
-        9 => ['id' => 9, 'name' => 'PAFA'],
-        10 => ['id' => 9, 'name' => 'Ang1'],
-        11 => ['id' => 9, 'name' => 'FR1'],
-        12 => ['id' => 9, 'name' => 'Img'],
-        13 => ['id' => 9, 'name' => 'IA'],
-        14 => ['id' => 9, 'name' => 'Infog'],
-        15 => ['id' => 9, 'name' => 'Opt'],
-        16 => ['id' => 9, 'name' => 'SED'],
-        17 => ['id' => 9, 'name' => 'IP'],
-        18 => ['id' => 9, 'name' => 'Complex'],
-        19 => ['id' => 9, 'name' => 'Compile'],
-        20 => ['id' => 9, 'name' => 'SEC'],
-        21 => ['id' => 9, 'name' => 'COO'],
-        22 => ['id' => 9, 'name' => 'ANG2'],
-        23 => ['id' => 9, 'name' => 'FR2'],
-    ];
-     // Get the module or return 404
-     if (!isset($modules[$moduleId])) {
-        abort(404, 'Module not found');
-    }
-
-    $module = (object) $modules[$moduleId]; // Convert array to object for easier use
     
     return view('archive', [
         'module' => $module,
         'courses' => $courses,
-        'tutorials' => \App\Models\File::where('category', 'tutorials')->where('module_id', $moduleId)->get(),
-        'exams' => \App\Models\File::where('category', 'exams')->where('module_id', $moduleId)->get(),
+        'tutorials' => \App\Models\File::where('category', 'tutorials')->where('module_id', $id)->get(),
+        'exams' => \App\Models\File::where('category', 'exams')->where('module_id', $id)->get(),
     ]);
 }
 }

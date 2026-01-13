@@ -28,141 +28,32 @@
                             </div>
                         </div>
                         <div class="p-8 space-y-4 max-h-96 overflow-y-auto">
-                        <a href="archive/2" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                        @foreach($modules as $m)
+                        @if( $m->semestre == 1)
+                           <a href="archive/{{$m->id}}" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
                                 <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">1</span>
+                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">{{$m->id}}</span>
                                     <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Théorie Des Graphes</span>
+                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">{{$m->name}}</span>
                                         <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
                                     </div>
                                 </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="archive/1" onclick="handleDashboard()" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">2</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Théorie De Langage</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/7" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">3</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Développement Web</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/4" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">4</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Théorie de Signal</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/3" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">5</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Théorie de l'information</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/9" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">6</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">PAFA</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/8" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">7</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Concepts de base de Réseau </span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/5" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">8</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Base de Données avancée</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/6" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">9</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Analyse des donneés </span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/10" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">10</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Anglais I</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/11" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">11</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Français I</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-
+                        @endif
+                        @endforeach
                         </div>
                     </div>
+
+
+
+
+
+
+
+
 
                     <!-- Card Semestre 2 -->
                     <div class="card-s2 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500">
@@ -180,12 +71,13 @@
                             </div>
                         </div>
                         <div class="p-8 space-y-4 max-h-96 overflow-y-auto">
-
-                            <a href="{{ route('archive.index') }}" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                          @foreach($modules as $m) 
+                          @if($m->semestre==2)
+                            <a href="archive/{{$m->id}}" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
                                 <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">1</span>
+                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">{{$m->id}}</span>
                                     <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Traitement d'image</span>
+                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">{{$m->name}}</span>
                                         <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
                                     </div>
                                 </div>
@@ -193,138 +85,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="archive/12" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">2</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">IA</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/13" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">3</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Infog</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/14" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">4</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">optimisation</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/15" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">5</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">SED</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/16" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">6</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">IP</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/17" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">7</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">complexité</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/18" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">8</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">compilation</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/19" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">9</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Sécurity informatique</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/20" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">10</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">COO</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/21" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">11</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Anglais II</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="archive/22" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
-                                <div class="flex items-center space-x-4">
-                                    <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">12</span>
-                                    <div>
-                                        <span class="text-white font-light-custom text-base leading-tight block tracking-tight">Français II</span>
-                                        <span class="text-gray-300 text-xs font-light-custom tracking-tight">Cliquez pour accéder aux ressources</span>
-                                    </div>
-                                </div>
-                                <svg class="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
+                          @endif
+                           @endforeach 
 
                         </div>
                     </div>
@@ -336,7 +98,7 @@
     </div>
 
     <script>
-        fumction handleDasbaord($moduleId) {
+        fumction handleDasbaord($id) {
 
         }
     </script>
