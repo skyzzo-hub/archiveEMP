@@ -83,7 +83,7 @@
         <i class="bi bi-list"></i>
     </button>
     <div class="">
-        <a class="archive navbar-brand text-white " href="#">
+        <a class="archive navbar-brand text-white " href="{{ route('dashboard') }}">
             ARCHIVE EMP
         </a>
          <img src="{{ asset('logo/logo.png') }}" alt="logo emp" style="height:70px; width:44px; margin-left:1px;">

@@ -368,7 +368,7 @@
     
 
 <script>
-        function handleFileUpload(input, category) {
+function handleFileUpload(input, category) {
 
     if (!input.files || input.files.length === 0) {
         alert('No files selected');

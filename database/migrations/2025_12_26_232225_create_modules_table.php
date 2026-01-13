@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('coefficient');
-            $table->integer('annee');
-            $table->string('filiere');
+            $table->string('semestre');
             $table->timestamps();
         });
     }

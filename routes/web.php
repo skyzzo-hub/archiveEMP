@@ -60,6 +60,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/archive/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
     // Archive - Page des modules
     
     Route::get('/archive/{moduleId}', [UploadManager::class, 'index'])->name('archive.index');

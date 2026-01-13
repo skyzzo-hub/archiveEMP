@@ -40,7 +40,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="archive/1" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                            <a href="archive/1" onclick="handleDashboard()" class="module-item module-item-s1 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
                                 <div class="flex items-center space-x-4">
                                     <span class="badge-s1 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">2</span>
                                     <div>
@@ -181,7 +181,7 @@
                         </div>
                         <div class="p-8 space-y-4 max-h-96 overflow-y-auto">
 
-                            <a href="archive/11" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
+                            <a href="{{ route('archive.index') }}" class="module-item module-item-s2 flex items-center justify-between p-6 rounded-2xl hover:shadow-xl transition-all duration-300">
                                 <div class="flex items-center space-x-4">
                                     <span class="badge-s2 w-12 h-12 rounded-xl flex items-center justify-center text-white font-light-custom text-base shadow-lg">1</span>
                                     <div>
@@ -334,4 +334,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        fumction handleDasbaord($moduleId) {
+
+        }
+    </script>
 @endsection
