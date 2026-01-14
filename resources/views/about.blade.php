@@ -339,7 +339,7 @@
             <h2 style="font-size: 2rem; margin-bottom: 10px;">{{ __('about.cta_title') }}</h2>
             <p style="color: var(--text-secondary);">{{ __('about.cta_sub') }}</p>
 
-            <a href="#" class="btn-gold">{{ __('about.cta_btn') }}</a>
+            <a href="{{route('dashboard')}}" class="btn-gold">{{ __('about.cta_btn') }}</a>
         </div>
     </div>
 

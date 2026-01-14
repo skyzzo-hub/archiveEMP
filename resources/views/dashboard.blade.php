@@ -3,13 +3,18 @@
 @section('title', 'Graph Theory')
 
 @section('content')
+
   <div class="min-h-screen pt-24 pb-12">
+  
             <div class="container mx-auto px-4 lg:px-8">
+            
                 <div class="text-center mb-16">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-light-custom tracking-tight mb-6 gradient-text drop-shadow-2xl">📚 Archives Académiques</h1>
                     <p class="text-lg md:text-xl lg:text-2xl text-gray-200 font-light-custom tracking-tight">École Militaire Polytechnique</p>
                     <div class="h-1 w-40 mx-auto mt-6 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg"></div>
+                    
                 </div>
+                
 
                 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     <!-- Card Semestre 1 -->

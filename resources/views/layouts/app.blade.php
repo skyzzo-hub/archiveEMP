@@ -131,7 +131,7 @@
 
         <div class="contents d-flex">
             <img src="{{ asset('logo/logo.png') }}" alt="logo emp" style="height:70px;">
-            <a class="archive navbar-brand text-white text-center mt-2 ml-2" href="dashboard/">
+            <a class="archive navbar-brand text-white text-center mt-2 ml-2" href="{{route('home')}}">
                 Archive<br>EMP
             </a>
         </div>  

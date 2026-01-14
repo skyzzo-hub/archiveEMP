@@ -22,6 +22,12 @@
     
     <div class="flex items-center justify-between mb-8">
         <h2 class="text-xl font-bold text-white">Modules</h2>
+
+        <a href="{{ route('dashboard') }}" class="w-9 h-9 flex items-center justify-center rounded-lg bg-yellow-500/10 border border-yellow-500/30 hover:bg-yellow-500/20 transition-all duration-300 group" title="Go to Dashboard">
+            <svg class="w-5 h-5 text-yellow-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+        </a>
     </div>
     
     {{-- Module List --}}
@@ -317,13 +323,6 @@
                                 <p class="text-slate-500 text-xs">{{ strtoupper($file->filetype) }} • {{ number_format($file->size / 1024, 2) }} KB</p>
                             </div>
                         </a>
-                        
-                        {{-- Download Icon --}}
-                        <div class="w-8 h-8 bg-yellow-500/10 rounded-lg flex items-center justify-center border border-yellow-600/20 transition-opacity flex-shrink-0 ml-3">
-                            <svg class="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                            </svg>
-                        </div>
                         
                         {{-- Delete Button --}}
                         <button 
@@ -853,27 +852,18 @@ function deleteFile(fileId, filename) {
     });
 }
 function handleFileUpload(input, category) {
-
-    if (!input.files || input.files.length === 0) {
-        alert('No files selected');
-        return;
-    }
     
     const formData = new FormData();
     
     // Add files with the correct key
     Array.from(input.files).forEach((file, index) => {
         formData.append('files[]', file, file.name);
-        console.log(`File ${index}:`, file.name, file.size, file.type);
+        
     });
     
     formData.append('category', category);
     formData.append('module_id', {{ $module->id }});
     
-    // Log FormData contents
-    for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-    }
     
     const button = input.previousElementSibling;
     const originalText = button.innerHTML;
@@ -892,7 +882,6 @@ function handleFileUpload(input, category) {
         }
     })
     .then(response => {
-        console.log('Response status:', response.status);
         return response.json();
     })
     .then(data => {
@@ -902,8 +891,6 @@ function handleFileUpload(input, category) {
             setTimeout(() => {
                 window.location.reload();
             }, 500);
-        } else {
-            alert('Upload failed: ' + data.message);
         }
     })
     .catch(error => {
